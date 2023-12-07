@@ -21,14 +21,13 @@ export const BasicTable = () => {
     return (
       <table {...getTableProps()}>
         <thead>
-          {headerGroups.map((headerGroup) => {
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => {
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>;
-                console.log(column.render("Header"));
-              })}
-            </tr>;
-          })}
+          {headerGroups.map((headerGroups) => (
+            <tr {...headerGroups.getHeaderGroupProps()}>
+              {headerGroups.headers.map((column) => (
+                <th {...column.getHeaderProps()}>{column.render("Header")} </th>
+              ))}
+            </tr>
+          ))}
         </thead>
         <tbody {...getTableBodyProps()}>
           {rows.map((row) => {
@@ -36,7 +35,6 @@ export const BasicTable = () => {
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
-                  // console.log(cell);
                   return (
                     <td {...cell.getCellProps()}>{cell.render("Cell")} </td>
                   );
@@ -46,14 +44,13 @@ export const BasicTable = () => {
           })}
         </tbody>
         <tfoot>
-          {footerGroups.map((footerGroup) => {
+          {footerGroups.map((footerGroup) => (
             <tr {...footerGroup.getFooterGroupProps()}>
-              {footerGroup.headers.map((column) => {
-                <td {...column.getFooterProps}>{column.render("Footer")} </td>;
-                console.log(column.render("Footer"));
-              })}
-            </tr>;
-          })}
+              {footerGroup.headers.map((column) => (
+                <td {...column.getFooterProps}>{column.render("Footer")}</td>
+              ))}
+            </tr>
+          ))}
         </tfoot>
       </table>
     );
