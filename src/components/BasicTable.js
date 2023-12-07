@@ -11,37 +11,50 @@ export const BasicTable = () => {
   //   useTable({ columns: columns, data: data });
   const tableInstance = useTable({ columns, data });
     const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups, // a group of headers, 
-        rows, //on each we access the cells, and from each cell we call the render function passing in the string "cell".It picks the  value from MOCK_JSON data for each column.
-        prepareRow } =
-    tableInstance;
-  return (
-    <table {...getTableProps()}>
-      <thead>
-        {headerGroups.map((headerGroup) => {
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => {
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>;
-              console.log(column.render("Header"));
-            })}
-          </tr>;
-        })}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                // console.log(cell);
-                return <td {...cell.getCellProps()}>{cell.render("Cell")} </td>;
+      getTableProps,
+      getTableBodyProps,
+      headerGroups, // a group of headers,
+      footerGroups,
+      rows, //on each we access the cells, and from each cell we call the render function passing in the string "cell".It picks the  value from MOCK_JSON data for each column.
+      prepareRow,
+    } = tableInstance;
+    return (
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => {
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => {
+                <th {...column.getHeaderProps()}>{column.render("Header")}</th>;
+                console.log(column.render("Header"));
               })}
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  );
+            </tr>;
+          })}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  // console.log(cell);
+                  return (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")} </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+        <tfoot>
+          {footerGroups.map((footerGroup) => {
+            <tr {...footerGroup.getFooterGroupProps()}>
+              {footerGroup.headers.map((column) => {
+                <td {...column.getFooterProps}>{column.render("Footer")} </td>;
+                console.log(column.render("Footer"));
+              })}
+            </tr>;
+          })}
+        </tfoot>
+      </table>
+    );
 };
