@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useTable, useGlobalFilter } from "react-table";
+import { useTable, useGlobalFilter, useFilters } from "react-table";
 import { COLUMNS } from "./columns";
 import MOCK_DATA from "./MOCK_DATA.json";
 import "./Basictable.css";
@@ -10,7 +10,11 @@ export const FilteringTable = () => {
   const data = useMemo(() => MOCK_DATA, []);
   //   useTable({ columns: COLUMNS, data: MOCK_DATA });
   //   useTable({ columns: columns, data: data });
-  const tableInstance = useTable({ columns, data }, useGlobalFilter);
+  const tableInstance = useTable(
+    { columns, data },
+    useFilters,
+    useGlobalFilter
+  );
   const {
     getTableProps,
     getTableBodyProps,
@@ -40,6 +44,7 @@ export const FilteringTable = () => {
                         : "up"
                       : ""}
                   </span>
+                  <div>{column.canFilter ? column.render("Filter") : null}</div>
                 </th>
               ))}
             </tr>
