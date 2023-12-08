@@ -15,6 +15,8 @@ export const PaginationTable = () => {
     page,
     nextPage, // helper function that react-table is giving us to navigating across different pages.
     previousPage, // helper function that react-table is giving us to navigating across different pages.
+    canNextPage, // boolean proprties which indicates whether we can go next or previous
+    canPreviousPage, // boolean proprties which indicates whether we can go next or previous
     prepareRow,
   } = tableInstance;
     return (
@@ -52,12 +54,16 @@ export const PaginationTable = () => {
               );
             })}
           </tbody>
-            </table>
-            
-            <div>
-                <button onClick={() => previousPage()}>Previous</button>
-                <button onClick={()=> nextPage()}>Next</button>
-            </div>
+        </table>
+
+        <div>
+          <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+            Previous
+          </button>
+          <button onClick={() => nextPage()} disabled={!canNextPage}>
+            Next
+          </button>
+        </div>
       </>
     );
 };
