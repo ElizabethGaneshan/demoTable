@@ -4,14 +4,22 @@ import { COLUMNS } from "./columns";
 import MOCK_DATA from "./MOCK_DATA.json";
 import "./Basictable.css";
 import { GlobalFilter } from "./GlobalFilter";
+import { ColumnFilter } from "./ColumnFilter";
 
 export const FilteringTable = () => {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
+  const defaultColumn = useMemo(() => {
+
+    // Returning an object property which will be applied in all the column
+    return {
+      Filter: ColumnFilter,
+    };
+  }, []);
   //   useTable({ columns: COLUMNS, data: MOCK_DATA });
   //   useTable({ columns: columns, data: data });
   const tableInstance = useTable(
-    { columns, data },
+    { columns, data, defaultColumn },
     useFilters,
     useGlobalFilter
   );
@@ -27,6 +35,7 @@ export const FilteringTable = () => {
   } = tableInstance;
 
   const { globalFilter } = state;
+
   return (
     <>
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
